@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.after\:mask-gradient::after {
+  -webkit-mask: linear-gradient(to top, transparent 25%, black 50%);
+  mask: linear-gradient(to top, transparent 25%, black 50%);
+}

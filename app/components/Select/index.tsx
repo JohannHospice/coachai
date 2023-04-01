@@ -15,13 +15,15 @@ export function Select({
 }) {
   return (
     <select
-      className="shadow appearance-none rounded w-full py-2 px-3 bg-slate-500 text-white leading-tight focus:outline-none focus:shadow-outline"
+      className="text-ellipsis overflow-hidden t-transparent bg-transparent px-3 py-2.5 text-sm"
       name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      defaultValue={defaultValue}
     >
+      <option value="" disabled selected>
+        {placeholder}
+      </option>
       {children}
     </select>
   );

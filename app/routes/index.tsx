@@ -1,44 +1,53 @@
-import type { ActionArgs, V2_MetaFunction } from "@remix-run/node";
-import { Form } from "@remix-run/react";
-import { Select } from "../components/Select";
-import { Input } from "../components/Input";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import { createFitnessProgram } from "~/api/openai/program";
+import { FormCreateProgram } from "../components/FormCreateProgram";
+import { useLoaderData, useNavigation } from "@remix-run/react";
+import { ProgramCards } from "../components/ProgramCards";
+import { createProfile } from "../tools/createProfile";
+import { Container } from "../components/Container";
 
-export const meta: V2_MetaFunction = () => {
+export function meta() {
   return [{ title: "Coach" }];
-};
+}
+
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
-  console.log(body.values());
 
-  return 0;
+  const openAIResponse = await createFitnessProgram(createProfile(body));
+  return redirect(`?res=${encodeURI(JSON.stringify(openAIResponse))}`);
+}
+
+export async function loader({ request }: LoaderArgs) {
+  const result = new URL(request.url).searchParams.get("res");
+  if (result) return json(JSON.parse(result));
+  return null;
 }
 
 export default function Index() {
+  const data = useLoaderData<Program>();
+  const { state } = useNavigation();
+
+  const isLoading = state !== "idle";
+  const isProgramGenerated = data != null;
+
   return (
-    <div className="">
-      <Form method="post" className="flex gap-4 flex-col">
-        <Select name="gender">
-          <option value="male">Homme</option>
-          <option value="female">Femme</option>
-        </Select>
-        <Select name="age" placeholder="L'âge" defaultValue="18">
-          {Array(120)
-            .fill(0)
-            .map((_, i) => (
-              <option value={i} key={i}>
-                {i} ans
-              </option>
-            ))}
-        </Select>
-        <Input type="number" name="height" placeholder="La taille en cm" />
-        <Input type="number" name="weight" placeholder="Le poids en kg" />
-        <button
-          className="bg-yellow-500 uppercase font-semibold rounded w-full py-2 px-3"
-          type="submit"
-        >
-          Générer le programme
-        </button>
-      </Form>
-    </div>
+    <>
+      <div className="sticky top-0 ">
+        <div className="py-8 relative after:absolute after:inset-0 after:backdrop-blur-sm after:mask-gradient after:-z-10">
+          <Container>
+            <FormCreateProgram />
+          </Container>
+        </div>
+      </div>
+      <Container>
+        <div className="flex flex-col gap-4">
+          {isLoading
+            ? "loading"
+            : isProgramGenerated && <ProgramCards program={data} />}
+        </div>
+      </Container>
+    </>
   );
 }

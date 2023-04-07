@@ -5,15 +5,18 @@ export async function createFitnessProgram(profile: Profile) {
   const response = await fetchChat(createMessages(profile));
   console.log(response);
 
-  if (response) {
-    return JSON.parse(
+  if (!response) {
+    throw new Error("Error with gpt");
+  }
+  return {
+    ...JSON.parse(
       substringIfNeeded(response, "```")
         .replace(/\\n/g, "")
         .replace("JSON", "")
         .replace("json", "")
-    );
-  }
-  return null;
+    ),
+    profile,
+  } as ProgramWithProfile;
 }
 
 // Sometime the json response is between ```

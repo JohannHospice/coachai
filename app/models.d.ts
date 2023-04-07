@@ -6,7 +6,7 @@ interface Profile {
   gender: "H" | "F";
 }
 
-interface ProgramPROMPT {
+interface ProgramForPROMPT {
   workoutPlan: { [day: number]: { type: string; exercices: string[] } };
   nutritionPlan: {
     [name in "carbs" | "lipids" | "proteins" | "calories"]: {
@@ -42,3 +42,5 @@ interface Program {
   };
 }
 type NutritionName = "carbs" | "lipids" | "proteins" | "calories";
+
+type ProgramWithProfile = Program & { profile: Profile };

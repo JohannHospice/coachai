@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
-import { Bubble } from "../Bubble";
+import { Bubble } from "../../common/Bubble";
 
-export function CardDayProgram({
+export function CardSportProgramByDay({
   number,
   plan,
 }: {
@@ -17,7 +17,7 @@ export function CardDayProgram({
     <button
       disabled={isRest}
       onClick={() => setOpen(!open)}
-      className="w-full rounded-2xl  bg-gray-800 enabled:hover:bg-gray-700 transition-colors p-4 text-left"
+      className="w-full rounded-2xl disabled:opacity-40 text-white  bg-gray-800 enabled:hover:bg-gray-700 transition-colors p-4 text-left"
     >
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-1">
@@ -27,15 +27,13 @@ export function CardDayProgram({
             {!isRest && <Bubble>{plan.exercices.length} exercices</Bubble>}
           </div>
         </div>
-        {!isRest && (
-          <div
-            className={
-              "h-6 w-6 transition-transform " + (open ? "rotate-180" : "")
-            }
-          >
-            <ChevronUpIcon />
-          </div>
-        )}
+        <div
+          className={
+            "h-6 w-6 transition-transform " + (open ? "rotate-180" : "")
+          }
+        >
+          <ChevronUpIcon />
+        </div>
       </div>
       <ul className={"pt-4 " + (open ? "" : "hidden")}>
         {plan.exercices.map((exercice) => (

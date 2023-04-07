@@ -7,8 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import OutletWrapper from "./components/layout/OutletWrapper";
 import stylesheet from "~/tailwind.css";
-import { Main } from "./components/Main";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -24,9 +24,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Main>
+        <OutletWrapper>
           <Outlet />
-        </Main>
+        </OutletWrapper>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

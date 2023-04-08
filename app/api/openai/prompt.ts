@@ -25,7 +25,7 @@ const SYSTEM_PROMPT = `
     - le nombre de mois pour atteindre cet objectif.
     Réponds moi un fichier JSON respectant le type Program : 
     interface Program {
-      workoutPlan: { [day: number]: { type: string; exercices: string[] } };
+      workoutPlan: { [day: number]: { type: string; exercises: string[] } };
       nutritionPlan: {
         [name in "carbs" | "lipids" | "proteins" | "calories"]: {
           quantityMin: number;

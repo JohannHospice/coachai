@@ -3,6 +3,7 @@ import { Select } from "../../common/Select";
 import { Input } from "../../common/Input";
 import { Button } from "../../common/Button";
 import { Card } from "../../common/Card";
+import { LabelError } from "~/components/common/LabelError";
 
 export function FormSendProfile({
   isLoading,
@@ -65,6 +66,7 @@ export function FormSendProfile({
           label="Poids désiré"
           required
         />
+        {errors["form"] && <LabelError>{errors["form"]}</LabelError>}
         <div className="col-span-2 flex justify-end">
           <Button isLoading={isLoading}>Envoyer</Button>
         </div>

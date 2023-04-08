@@ -7,7 +7,7 @@ interface Profile {
 }
 
 interface ProgramForPROMPT {
-  workoutPlan: { [day: number]: { type: string; exercices: string[] } };
+  workoutPlan: { [day: number]: { type: string; exercises: string[] } };
   nutritionPlan: {
     [name in "carbs" | "lipids" | "proteins" | "calories"]: {
       quantityMin: number;
@@ -25,7 +25,7 @@ interface ProgramForPROMPT {
 }
 
 interface Program {
-  workoutPlan: { [day: number]: { type: string; exercices: string[] } };
+  workoutPlan: { [day: number]: { type: string; exercises: string[] } };
   nutritionPlan: {
     [name in NutritionName]: {
       quantityMin: number;

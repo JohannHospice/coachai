@@ -1,3 +1,5 @@
+import { LabelError } from "../LabelError";
+
 export function Input({
   type,
   name,
@@ -33,7 +35,6 @@ export function Input({
       <div className="relative w-full">
         <input
           className="appearance-none w-full t-transparent bg-transparent px-4 py-4 text-sm rounded-lg border border-gray-800"
-          // className="appearance-none rounded-2xl w-full py-2 px-4 bg-gray-800 text-white leading-tight focus:outline-none focus:shadow-outline"
           type={type}
           name={name}
           placeholder={placeholder}
@@ -47,7 +48,7 @@ export function Input({
           {end}
         </label>
       </div>
-      <label className="text-sm text-red-500 mt-1">{error}</label>
+      {error && <LabelError>{error}</LabelError>}
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useAsyncValue } from "@remix-run/react";
-import { CardValueSection } from "../../cards/CardValueSection";
+import { CardValueSection } from "../cards/CardValueSection";
 import { SparklesIcon, ClockIcon } from "@heroicons/react/24/solid";
-import { CardProfile } from "../../cards/CardProfile";
-import { CardProgram } from "../../cards/CardProgram";
-import { NUTRITION_PLAN_TRANSFORMER } from "../../../tools/transformer";
+import { CardProfile } from "../cards/CardProfile";
+import { CardProgram } from "../cards/CardProgram";
+import { NUTRITION_PLAN_TRANSFORMER } from "../../tools/transformer";
 
 export function CompleteProgramAccessor() {
   const program = useAsyncValue() as ProgramWithProfile;

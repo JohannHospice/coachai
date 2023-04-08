@@ -1,9 +1,10 @@
+import { LabelError } from "../LabelError";
+
 export function Select({
   children,
   name,
   value,
   placeholder,
-  defaultValue,
   onChange,
   label,
   required,
@@ -13,7 +14,6 @@ export function Select({
   name: string;
   value?: string;
   placeholder?: string;
-  defaultValue?: string;
   onChange?: (e: any) => void;
   label?: string;
   required?: boolean;
@@ -37,7 +37,7 @@ export function Select({
         </option>
         {children}
       </select>
-      <label className="text-sm text-red-500 mt-1">{error}</label>
+      {error && <LabelError>{error}</LabelError>}
     </div>
   );
 }

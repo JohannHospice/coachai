@@ -1,11 +1,17 @@
-import type { LoaderArgs } from "@remix-run/node";
+import { LoaderArgs, redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Await, useLoaderData } from "@remix-run/react";
-import { CompleteProgramAccessor } from "../components/program/ProgramResults";
+import {
+  Await,
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import { Container } from "../components/common/Container";
 import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
 import { Link } from "@remix-run/react";
 import { Suspense } from "react";
+import { ProgramWithProfile } from "~/tools/validator";
+import { CompleteProgramAccessor } from "~/components/program/CompleteProgramAccessor";
 
 export function meta() {
   return [{ title: "Vos Résultats Personnalisés - CoachAI" }];
@@ -13,10 +19,36 @@ export function meta() {
 
 export async function loader({ request }: LoaderArgs) {
   const result = new URL(request.url).searchParams.get("program");
+  if (result) {
+    const program = ProgramWithProfile.safeParse(JSON.parse(result));
+    if (program.success) {
+      return json(program.data);
+    }
+  }
 
-  return result ? json(JSON.parse(result)) : null;
+  throw json("Le programme passé est corrompu.", { status: 501 });
 }
 
+export function ErrorBoundary() {
+  let error = useRouteError();
+
+  if (isRouteErrorResponse(error) && error.status === 501) {
+    return (
+      <Container>
+        <h1 className="text-4xl font-semibold mb-4">
+          Oups... Le programme créé est corrompu !
+        </h1>
+        <Link
+          to="/"
+          className="flex text-sm hover:text-gray-300 transition-colors"
+        >
+          <ArrowSmallLeftIcon className="w-5 mr-1" />
+          Tenter une nouvelle recherche !
+        </Link>
+      </Container>
+    );
+  }
+}
 export default function Index() {
   const program = useLoaderData<ProgramWithProfile>();
 

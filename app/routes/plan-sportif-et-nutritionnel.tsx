@@ -7,13 +7,13 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import { Suspense } from "react";
-import { Heading } from "~/components/common/Heading";
-import { LinkHome } from "~/components/common/LinkHome";
-import { FitnessProgramAccessor } from "~/components/program/FitnessProgramAccessor";
+import { Heading } from "~/components/commons/Heading";
+import { LinkHome } from "~/components/commons/LinkHome";
+import { FitnessProgramAccessor } from "~/components/specifics/FitnessProgramAccessor";
 import type { ProgramWithProfile } from "~/models/types";
 import { ProgramAndProfileValidator } from "~/models/validators";
-import { Container } from "../components/common/Container";
-import { ErrorPageContent } from "../components/common/ErrorPageContent";
+import { Container } from "../components/commons/Container";
+import { ErrorPageContent } from "../components/commons/ErrorPageContent";
 
 export function meta() {
   return [

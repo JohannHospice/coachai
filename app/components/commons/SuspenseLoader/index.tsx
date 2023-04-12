@@ -1,4 +1,4 @@
-import { BlobBackground } from "~/components/layout/BlobBackground";
+import { BlobBackground } from "~/components/layouts/BlobBackground";
 
 export function SuspenseLoader({
   loading,

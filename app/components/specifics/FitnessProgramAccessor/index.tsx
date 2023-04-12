@@ -4,8 +4,8 @@ import { SparklesIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { CardProfile } from "../../cards/CardProfile";
 import { CardProgram } from "../../cards/CardProgram";
 import { NUTRITION_PLAN_TRANSFORMER } from "../../../tools/transformer";
-import { Card } from "../../common/Card";
-import { TextSection } from "~/components/common/TextSection";
+import { Card } from "../../commons/Card";
+import { TextSection } from "~/components/commons/TextSection";
 import type { NutritionName, ProgramWithProfile } from "~/models/types";
 
 export function FitnessProgramAccessor() {
@@ -57,7 +57,7 @@ export function FitnessProgramAccessor() {
       <div className="md:col-start-2 md:row-start-2">
         <CardProgram workoutPlan={program.workoutPlan} />
         {program.conseil && (
-          <Card color="bg-gray-900 mt-6">
+          <Card className="bg-gray-900 mt-6">
             <TextSection title="Conseil">{program.conseil}</TextSection>
           </Card>
         )}

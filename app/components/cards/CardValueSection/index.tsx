@@ -1,5 +1,5 @@
-import { Card } from "~/components/common/Card";
-import { ValueSection } from "../../common/ValueSection";
+import { Card } from "~/components/commons/Card";
+import { ValueSection } from "../../commons/ValueSection";
 
 export function CardValueSection({
   min,
@@ -17,7 +17,7 @@ export function CardValueSection({
   icon?: any;
 }) {
   return (
-    <Card color={color}>
+    <Card className={color}>
       <ValueSection
         icon={icon}
         title={title}

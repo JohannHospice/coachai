@@ -1,10 +1,10 @@
 import { Form } from "@remix-run/react";
-import { Select } from "../../common/Select";
-import { Input } from "../../common/Input";
-import { Button } from "../../common/Button";
-import { Card } from "../../common/Card";
-import { LabelError } from "~/components/common/LabelError";
-import { TextArea } from "~/components/common/TextArea";
+import { Select } from "../../commons/Select";
+import { Input } from "../../commons/Input";
+import { Button } from "../../commons/Button";
+import { Card } from "../../commons/Card";
+import { LabelError } from "~/components/commons/LabelError";
+import { TextArea } from "~/components/commons/TextArea";
 
 export function FormProfile({
   loading,
@@ -14,7 +14,7 @@ export function FormProfile({
   errors?: { [key: string]: string };
 }) {
   return (
-    <Card color="bg-gray-900">
+    <Card className="bg-gray-900">
       <Form method="post" className="flex flex-col gap-4">
         <div className="text-xl">Décrivez nous votre profil</div>
         <Select

@@ -7,7 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import OutletWrapper from "./components/layout/OutletWrapper";
+import OutletWrapper from "./components/layouts/OutletWrapper";
 import stylesheet from "~/tailwind.css";
 
 export const links: LinksFunction = () => [

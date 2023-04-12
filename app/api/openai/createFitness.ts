@@ -1,8 +1,8 @@
 import { ProgramValidator } from "~/models/validators";
 import { fetchChat } from "./index";
-import createChatMessageForFitnessProgram from "./createChatMessageForFitnessProgram";
+import createChatMessageForFitnessProgram from "./createPromptForProgram";
 import type { Profile, ProgramWithProfile } from "~/models/types";
-import { parseSpecificJsonObjectFromString } from "../../tools/parseSpecificJsonObjectFromString";
+import { parseSpecificJsonObjectFromString } from "../../tools";
 
 export async function createFitness(
   profile: Profile

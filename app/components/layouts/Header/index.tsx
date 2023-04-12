@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { Container } from "../../common/Container";
+import { Container } from "../../commons/Container";
 
 export function Header() {
   return (

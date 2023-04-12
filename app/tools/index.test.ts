@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { parseSpecificJsonObjectFromString } from "./parseSpecificJsonObjectFromString";
+import { parseSpecificJsonObjectFromString } from ".";
 
 describe("parseSpecificJsonObjectFromString", () => {
   test("has found a json element in string", () => {

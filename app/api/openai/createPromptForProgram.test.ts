@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import createChatMessageForFitnessProgram from "./createChatMessageForFitnessProgram";
+import createChatMessageForFitnessProgram from "./createPromptForProgram";
 
 describe("openai", () => {
   test("createChatMessageForFitnessProgram", () => {

@@ -1,11 +1,11 @@
-import { Card } from "~/components/common/Card";
+import { Card } from "~/components/commons/Card";
 import type { Profile } from "~/models/types";
-import { TextSection } from "../../common/TextSection";
-import { ValueSection } from "../../common/ValueSection";
+import { TextSection } from "../../commons/TextSection";
+import { ValueSection } from "../../commons/ValueSection";
 
 export function CardProfile({ profile }: { profile: Profile }) {
   return (
-    <Card color="bg-gray-900">
+    <Card className="bg-gray-900">
       <h4 className="text-2xl mb-6">Profil du sportif</h4>
       <div className="grid grid-rows-3 md:grid-rows-1 grid-flow-col gap-6">
         <ValueSection

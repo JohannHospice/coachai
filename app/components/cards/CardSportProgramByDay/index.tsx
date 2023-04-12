@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
-import { Bubble } from "../../common/Bubble";
+import { Bubble } from "../../commons/Bubble";
 import type { WorkoutValues } from "~/models/types";
 
 export function CardSportProgramByDay({

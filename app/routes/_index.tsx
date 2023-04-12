@@ -1,12 +1,12 @@
 import type { ActionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { createFitness } from "~/api/openai/createFitness";
-import { FormProfile } from "../components/program/FormProfile";
+import { FormProfile } from "../components/specifics/FormProfile";
 import { useActionData, useNavigation } from "@remix-run/react";
-import { Container } from "../components/common/Container";
-import { HeroHomePage } from "../components/program/HeroHomePage";
+import { Container } from "../components/commons/Container";
+import { HeroHomePage } from "../components/specifics/HeroHomePage";
 import { ProfileValidator } from "../models/validators";
-import { SuspenseLoader } from "../components/common/SuspenseLoader";
+import { SuspenseLoader } from "../components/commons/SuspenseLoader";
 
 export function meta() {
   return [{ title: "CoachAI" }];

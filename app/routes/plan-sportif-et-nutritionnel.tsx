@@ -6,14 +6,14 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { Container } from "../components/common/Container";
 import { Suspense } from "react";
-import { ProgramAndProfileValidator } from "~/models/validators";
+import { Heading } from "~/components/common/Heading";
+import { LinkHome } from "~/components/common/LinkHome";
 import { FitnessProgramAccessor } from "~/components/program/FitnessProgramAccessor";
 import type { ProgramWithProfile } from "~/models/types";
+import { ProgramAndProfileValidator } from "~/models/validators";
+import { Container } from "../components/common/Container";
 import { ErrorPageContent } from "../components/common/ErrorPageContent";
-import { LinkHome } from "~/components/common/LinkHome";
-import { Heading } from "~/components/common/Heading";
 
 export function meta() {
   return [
@@ -74,14 +74,13 @@ export default function Index() {
     <Container>
       <div className="flex flex-col gap-8 my-8">
         <LinkHome>Retour vers la création d'un nouveau programme</LinkHome>
-        <Heading
-          title="Votre plan sportif et nutritionnel personnalisé"
-          subtitle="Découvrez votre programme d'entraînement et de nutrition sur mesure,
-            conçu pour vous aider à atteindre vos objectifs rapidement et
-            efficacement. Suivez votre progression et ajustez votre plan en
-            fonction de vos performances pour une expérience véritablement
-            personnalisée."
-        />
+        <Heading title="Votre plan sportif et nutritionnel personnalisé">
+          Découvrez votre programme d'entraînement et de nutrition sur mesure,
+          conçu pour vous aider à atteindre vos objectifs rapidement et
+          efficacement. Suivez votre progression et ajustez votre plan en
+          fonction de vos performances pour une expérience véritablement
+          personnalisée.
+        </Heading>
         <Suspense>
           <Await resolve={data}>
             <FitnessProgramAccessor />

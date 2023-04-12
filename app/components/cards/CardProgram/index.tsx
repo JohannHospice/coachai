@@ -1,6 +1,6 @@
+import { Card } from "~/components/common/Card";
 import type { Workout } from "~/models/types";
 import { CardSportProgramByDay } from "../CardSportProgramByDay";
-import { Card } from "~/components/common/Card";
 
 export function CardProgram({ workoutPlan }: { workoutPlan: Workout }) {
   return (

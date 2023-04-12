@@ -1,12 +1,12 @@
 import type { ActionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import createFitnessProgram from "~/api/createFitnessProgram";
+import { createFitness } from "~/api/openai/createFitness";
 import { FormProfile } from "../components/program/FormProfile";
 import { useActionData, useNavigation } from "@remix-run/react";
 import { Container } from "../components/common/Container";
 import { HeroHomePage } from "../components/program/HeroHomePage";
 import { ProfileValidator } from "../models/validators";
-import { SuspenseLoader } from "../components/common/LoadingScreen";
+import { SuspenseLoader } from "../components/common/SuspenseLoader";
 
 export function meta() {
   return [{ title: "CoachAI" }];
@@ -20,7 +20,7 @@ export async function action({ request }: ActionArgs) {
 
   if (profile.success) {
     try {
-      const fitnessProgram = await createFitnessProgram(profile.data);
+      const fitnessProgram = await createFitness(profile.data);
       return redirect(
         `/plan-sportif-et-nutritionnel?program=${encodeURI(
           JSON.stringify(fitnessProgram)

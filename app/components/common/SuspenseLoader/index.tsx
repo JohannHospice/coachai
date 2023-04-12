@@ -12,7 +12,7 @@ export function SuspenseLoader({
       <div className={loading ? "overflow-hidden h-0" : ""}>{children} </div>
       <div
         className={
-          "fixed inset-0 z-10 overflow-hidden bg-gray-950 transition-opacity duration-300 transition-[visible 1s] " +
+          "fixed inset-0 z-10 overflow-hidden bg-gray-950 transition-opacity duration-500 transition-[visible 1s] " +
           (loading ? "opacity-100 visible" : "opacity-0 invisible")
         }
       >

@@ -11,7 +11,7 @@ export function ErrorPageContent({
 }) {
   return (
     <Container>
-      <Heading title={title} subtitle={children} />
+      <Heading title={title}>{children}</Heading>
       <LinkHome>Tenter une nouvelle recherche</LinkHome>
     </Container>
   );

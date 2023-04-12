@@ -9,14 +9,9 @@ export function CardSportProgramByDay({
   number: number;
   plan: { type: string; exercises: string[] };
 }) {
-  const isRest =
-    plan.type.toLowerCase().includes("repos") ||
-    plan.type.toLowerCase().includes("rest");
+  const isRest = !plan.exercises || plan.exercises?.length === 0;
   const [open, setOpen] = useState(false);
-  if (!plan.exercises) {
-    console.info(plan, plan.exercises, number);
-    return null;
-  }
+
   return (
     <button
       disabled={isRest}
@@ -25,10 +20,10 @@ export function CardSportProgramByDay({
     >
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-1">
-          <div className="flex">Jour {number}</div>
+          <div className="text-md">Jour {number + 1}</div>
           <div className="flex gap-1">
             <Bubble>{capitalized(plan.type)}</Bubble>
-            {!isRest && <Bubble>{plan.exercises.length} exercises</Bubble>}
+            {!isRest && <Bubble>{plan.exercises?.length} exercises</Bubble>}
           </div>
         </div>
         <div
@@ -40,8 +35,8 @@ export function CardSportProgramByDay({
         </div>
       </div>
       <ul className={"pt-4 " + (open ? "" : "hidden")}>
-        {plan.exercises.map((exercice) => (
-          <li className="ml-6 list-disc" key={exercice}>
+        {plan.exercises?.map((exercice) => (
+          <li className="ml-6 list-disc text-sm" key={exercice}>
             {capitalized(exercice)}
           </li>
         ))}

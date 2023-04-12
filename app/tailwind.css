@@ -1,5 +1,4 @@
 @import "./components/common/Loader/index.css";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,16 +10,8 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
   body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
     background: rgb(2, 6, 23);
-    color: white;
-  }
-  .title {
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    font-size: 20px;
   }
 }

@@ -2,12 +2,23 @@ import { fetchChat } from "./index";
 import { createMessages } from "./prompt";
 
 export async function createFitnessProgram(profile: Profile) {
-  const response = await fetchChat(createMessages(profile));
-  console.log(response);
+  const message = createMessages(profile);
+  const response = await fetchChat(message);
+
+  console.info({ message, response });
 
   if (!response) {
     throw new Error("Error with gpt");
   }
+
+  const result = JSON_IN_STRING_REGEX.exec(response);
+  if (result && result.length > 0) {
+    return {
+      ...JSON.parse(result[0]),
+      profile,
+    };
+  }
+
   return {
     ...JSON.parse(
       substringIfNeeded(response, "```")
@@ -27,3 +38,5 @@ function substringIfNeeded(response: string, separator: string) {
   }
   return response;
 }
+
+const JSON_IN_STRING_REGEX = /(\{.+?\n\})/s;

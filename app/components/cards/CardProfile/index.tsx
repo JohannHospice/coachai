@@ -1,5 +1,6 @@
 import { ValueSection } from "../../common/ValueSection";
 import { Card } from "~/components/common/Card";
+import { TextSection } from "../../common/TextSection";
 
 export function CardProfile({ profile }: { profile: Profile }) {
   return (
@@ -18,6 +19,13 @@ export function CardProfile({ profile }: { profile: Profile }) {
           unit="kg"
           value={profile.objectiveWeight}
         />
+        {profile.commentary && (
+          <div className="md:col-start-1 md:col-span-5 md:row-start-2 max-w-md">
+            <TextSection title="Informations supplémentaires">
+              {profile.commentary}
+            </TextSection>
+          </div>
+        )}
       </div>
     </Card>
   );

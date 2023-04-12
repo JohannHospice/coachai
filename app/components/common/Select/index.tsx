@@ -25,14 +25,15 @@ export function Select({
         <label className="text-sm mb-1">{label + (required ? " *" : "")}</label>
       )}
       <select
-        className="text-ellipsis overflow-hidden t-transparent bg-transparent px-4 py-4 text-sm rounded-lg border border-gray-800"
+        className="text-ellipsis overflow-hidden t-transparent bg-transparent px-4 py-4 text-sm rounded-lg border border-white/10"
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         required={required}
+        defaultValue={""}
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           {placeholder}
         </option>
         {children}

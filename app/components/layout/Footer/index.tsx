@@ -3,7 +3,7 @@ import { Container } from "../../common/Container";
 
 export function Footer() {
   return (
-    <div className="border-t border-gray-800 py-4 text-sm text-gray-300">
+    <div className="border-t border-white/10 py-4 text-sm text-gray-300">
       <Container>
         <div className="flex gap-4">
           <span>

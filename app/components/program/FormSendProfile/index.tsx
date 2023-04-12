@@ -4,6 +4,7 @@ import { Input } from "../../common/Input";
 import { Button } from "../../common/Button";
 import { Card } from "../../common/Card";
 import { LabelError } from "~/components/common/LabelError";
+import { TextArea } from "~/components/common/TextArea";
 
 export function FormSendProfile({
   isLoading,
@@ -66,8 +67,15 @@ export function FormSendProfile({
           label="Poids désiré"
           required
         />
+        <TextArea
+          maxLength={120}
+          name="commentary"
+          error={errors["commentary"]}
+          placeholder="Décrivez ici toute information particulière concernant votre régime alimentaire, entraînement spécialisé ou autre élément pertinent."
+          label="Informations supplémentaires"
+        />
         {errors["form"] && <LabelError>{errors["form"]}</LabelError>}
-        <div className="col-span-2 flex justify-end">
+        <div className="col-span-2 flex justify-end mt-2">
           <Button isLoading={isLoading}>Envoyer</Button>
         </div>
       </Form>

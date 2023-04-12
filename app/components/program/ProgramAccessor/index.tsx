@@ -1,14 +1,16 @@
 import { useAsyncValue } from "@remix-run/react";
-import { CardValueSection } from "../cards/CardValueSection";
+import { CardValueSection } from "../../cards/CardValueSection";
 import { SparklesIcon, ClockIcon } from "@heroicons/react/24/solid";
-import { CardProfile } from "../cards/CardProfile";
-import { CardProgram } from "../cards/CardProgram";
-import { NUTRITION_PLAN_TRANSFORMER } from "../../tools/transformer";
+import { CardProfile } from "../../cards/CardProfile";
+import { CardProgram } from "../../cards/CardProgram";
+import { NUTRITION_PLAN_TRANSFORMER } from "../../../tools/transformer";
+import { Card } from "../../common/Card";
+import { TextSection } from "~/components/common/TextSection";
 
-export function CompleteProgramAccessor() {
+export function ProgramAccessor() {
   const program = useAsyncValue() as ProgramWithProfile;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pb-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="md:col-span-2">
         <CardProfile profile={program.profile} />
       </div>
@@ -55,6 +57,11 @@ export function CompleteProgramAccessor() {
       </div>
       <div className="md:col-start-2 md:row-start-2">
         <CardProgram workoutPlan={program.workoutPlan} />
+        {program.conseil && (
+          <Card color="bg-gray-900 mt-6">
+            <TextSection title="Conseil">{program.conseil}</TextSection>
+          </Card>
+        )}
       </div>
     </div>
   );

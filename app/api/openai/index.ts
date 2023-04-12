@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 
-export const openai = new OpenAIApi(
+const openai = new OpenAIApi(
   new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   })
@@ -20,5 +20,9 @@ export async function fetchChat({
       { role: "user", content: userContent },
     ],
   });
-  return completion.data.choices[0].message?.content;
+  const content = completion.data.choices[0].message?.content;
+
+  if (!content) throw new Error("No content in gpt response");
+
+  return content;
 }

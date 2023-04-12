@@ -1,6 +1,6 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-export function Hero() {
+export function HeroHomePage() {
   return (
     <div>
       <h1 className="text-6xl font-semibold mb-2">

@@ -1,6 +1,7 @@
 import { ValueSection } from "../../common/ValueSection";
 import { Card } from "~/components/common/Card";
 import { TextSection } from "../../common/TextSection";
+import type { Profile } from "~/models/types";
 
 export function CardProfile({ profile }: { profile: Profile }) {
   return (

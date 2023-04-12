@@ -1,11 +1,8 @@
+import type { Workout } from "~/models/types";
 import { CardSportProgramByDay } from "../CardSportProgramByDay";
 import { Card } from "~/components/common/Card";
 
-export function CardProgram({
-  workoutPlan,
-}: {
-  workoutPlan: Program["workoutPlan"];
-}) {
+export function CardProgram({ workoutPlan }: { workoutPlan: Workout }) {
   return (
     <Card color="bg-gray-900">
       <h4 className="text-2xl mb-6">Programme sportif hebdomadaire</h4>

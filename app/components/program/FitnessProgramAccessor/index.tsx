@@ -6,21 +6,20 @@ import { CardProgram } from "../../cards/CardProgram";
 import { NUTRITION_PLAN_TRANSFORMER } from "../../../tools/transformer";
 import { Card } from "../../common/Card";
 import { TextSection } from "~/components/common/TextSection";
+import type { NutritionName, ProgramWithProfile } from "~/models/types";
 
-export function ProgramAccessor() {
-  const program = useAsyncValue() as ProgramWithProfile;
+export function FitnessProgramAccessor() {
+  const { program, profile } = useAsyncValue() as ProgramWithProfile;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="md:col-span-2">
-        <CardProfile profile={program.profile} />
+        <CardProfile profile={profile} />
       </div>
       <div className="md:row-start-2">
         <div className="grid row-span-1 grid-cols-2 gap-6">
           <CardValueSection
             title={
-              program.profile.weight < program.profile.objectiveWeight
-                ? "Gains"
-                : "Pertes"
+              profile.weight < profile.objectiveWeight ? "Gains" : "Pertes"
             }
             min={program.objective.gainsMinByMonths}
             max={program.objective.gainsMaxByMonths}

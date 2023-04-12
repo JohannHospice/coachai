@@ -4,6 +4,7 @@ import {
   MoonIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
+import type { NutritionName } from "~/models/types";
 
 export const NUTRITION_PLAN_TRANSFORMER = {
   calories: {

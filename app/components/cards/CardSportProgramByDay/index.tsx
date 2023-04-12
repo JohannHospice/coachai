@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import { Bubble } from "../../common/Bubble";
+import type { WorkoutValues } from "~/models/types";
 
 export function CardSportProgramByDay({
   number,
   plan,
 }: {
   number: number;
-  plan: { type: string; exercises: string[] };
+  plan: WorkoutValues;
 }) {
   const isRest = !plan.exercises || plan.exercises?.length === 0;
   const [open, setOpen] = useState(false);

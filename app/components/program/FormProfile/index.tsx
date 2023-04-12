@@ -6,11 +6,11 @@ import { Card } from "../../common/Card";
 import { LabelError } from "~/components/common/LabelError";
 import { TextArea } from "~/components/common/TextArea";
 
-export function FormSendProfile({
-  isLoading,
+export function FormProfile({
+  loading,
   errors = {},
 }: {
-  isLoading: boolean;
+  loading: boolean;
   errors?: { [key: string]: string };
 }) {
   return (
@@ -76,7 +76,7 @@ export function FormSendProfile({
         />
         {errors["form"] && <LabelError>{errors["form"]}</LabelError>}
         <div className="col-span-2 flex justify-end mt-2">
-          <Button isLoading={isLoading}>Envoyer</Button>
+          <Button isLoading={loading}>Envoyer</Button>
         </div>
       </Form>
     </Card>

@@ -1,25 +1,26 @@
 import type { ActionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { createFitnessProgram } from "~/api/openai/program";
-import { FormSendProfile } from "../components/program/FormSendProfile";
+import createFitnessProgram from "~/api/createFitnessProgram";
+import { FormProfile } from "../components/program/FormProfile";
 import { useActionData, useNavigation } from "@remix-run/react";
 import { Container } from "../components/common/Container";
-import { Hero } from "../components/program/Hero";
-import { Profile } from "../tools/validator";
+import { HeroHomePage } from "../components/program/HeroHomePage";
+import { ProfileValidator } from "../models/validators";
+import { SuspenseLoader } from "../components/common/LoadingScreen";
 
 export function meta() {
   return [{ title: "CoachAI" }];
 }
 
 export async function action({ request }: ActionArgs) {
-  const submissionData = Object.fromEntries(await request.formData());
-  console.log(submissionData);
+  const formDataObject = Object.fromEntries(await request.formData());
+  console.log(formDataObject);
 
-  const zodProfile = Profile.safeParse(submissionData);
+  const profile = ProfileValidator.safeParse(formDataObject);
 
-  if (zodProfile.success) {
+  if (profile.success) {
     try {
-      const fitnessProgram = await createFitnessProgram(zodProfile.data);
+      const fitnessProgram = await createFitnessProgram(profile.data);
       return redirect(
         `/plan-sportif-et-nutritionnel?program=${encodeURI(
           JSON.stringify(fitnessProgram)
@@ -33,9 +34,8 @@ export async function action({ request }: ActionArgs) {
     }
   }
 
-  console.error(zodProfile.error.issues);
-
-  return zodProfile.error.issues.reduce(
+  console.error(profile.error.issues);
+  return profile.error.issues.reduce(
     (acc, x) => ({ ...acc, [x.path.join("/")]: x.message }),
     {}
   );
@@ -44,13 +44,16 @@ export async function action({ request }: ActionArgs) {
 export default function Index() {
   const { state } = useNavigation();
   const errors = useActionData<{ [key: string]: string }>();
+  const loading = state !== "idle";
 
   return (
     <Container>
-      <div className="grid grid-cols-1 gap-8 py-8 lg:gap-20 md:grid-cols-2">
-        <Hero />
-        <FormSendProfile isLoading={state !== "idle"} errors={errors} />
-      </div>
+      <SuspenseLoader loading={loading}>
+        <div className="grid grid-cols-1 gap-8 py-8 lg:gap-20 md:grid-cols-2">
+          <HeroHomePage />
+          <FormProfile loading={loading} errors={errors} />
+        </div>
+      </SuspenseLoader>
     </Container>
   );
 }

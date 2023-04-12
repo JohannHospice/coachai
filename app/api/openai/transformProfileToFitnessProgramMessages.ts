@@ -1,4 +1,8 @@
-export function createMessages(profile: Profile) {
+import type { Profile } from "~/models/types";
+
+export default function transformProfileToFitnessProgramMessages(
+  profile: Profile
+) {
   return {
     systemContent: SYSTEM_PROMPT,
     userContent: getUserContentPrompt(profile),

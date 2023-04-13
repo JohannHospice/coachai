@@ -1,4 +1,3 @@
-import { useAsyncValue } from "@remix-run/react";
 import { CardValueSection } from "../../cards/CardValueSection";
 import { SparklesIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { CardProfile } from "../../cards/CardProfile";
@@ -6,10 +5,15 @@ import { CardProgram } from "../../cards/CardProgram";
 import { NUTRITION_PLAN_TRANSFORMER } from "../../../tools/transformer";
 import { Card } from "../../commons/Card";
 import { TextSection } from "~/components/commons/TextSection";
-import type { NutritionName, ProgramWithProfile } from "~/models/types";
+import type { NutritionName, Profile, Program } from "~/models/types";
 
-export function FitnessProgramAccessor() {
-  const { program, profile } = useAsyncValue() as ProgramWithProfile;
+export function FitnessProgramAccessor({
+  program,
+  profile,
+}: {
+  program: Program;
+  profile: Profile;
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="md:col-span-2">

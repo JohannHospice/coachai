@@ -53,7 +53,7 @@ export function FormProfile({
           name="weight"
           error={errors["weight"]}
           end="kg"
-          placeholder="80"
+          placeholder="71"
           label="Poids actuel"
           required
         />
@@ -63,7 +63,7 @@ export function FormProfile({
           name="objectiveWeight"
           error={errors["objectiveWeight"]}
           end="kg"
-          placeholder="90"
+          placeholder="85"
           label="Poids désiré"
           required
         />

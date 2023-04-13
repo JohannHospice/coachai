@@ -6,7 +6,6 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { Suspense } from "react";
 import { Heading } from "~/components/commons/Heading";
 import { LinkHome } from "~/components/commons/LinkHome";
 import { FitnessProgramAccessor } from "~/components/specifics/FitnessProgramAccessor";
@@ -39,6 +38,25 @@ export async function loader({ request }: LoaderArgs) {
   return json(fitnessProgram.data);
 }
 
+export default function PlanSportifEtNutritionnel() {
+  const data = useLoaderData<ProgramWithProfile>();
+  return (
+    <Container>
+      <div className="flex flex-col gap-8 my-8">
+        <LinkHome>Retour vers la création d'un nouveau programme</LinkHome>
+        <Heading title="Votre plan sportif et nutritionnel personnalisé">
+          Découvrez votre programme d'entraînement et de nutrition sur mesure,
+          conçu pour vous aider à atteindre vos objectifs rapidement et
+          efficacement. Suivez votre progression et ajustez votre plan en
+          fonction de vos performances pour une expérience véritablement
+          personnalisée.
+        </Heading>
+        <FitnessProgramAccessor program={data.program} profile={data.profile} />
+      </div>
+    </Container>
+  );
+}
+
 export function ErrorBoundary() {
   const error = useRouteError();
   const GLOBAL_MESSAGE =
@@ -65,28 +83,5 @@ export function ErrorBoundary() {
     <ErrorPageContent title="Oups... Une erreur s'est produite !">
       {GLOBAL_MESSAGE}
     </ErrorPageContent>
-  );
-}
-
-export default function Index() {
-  const data = useLoaderData<ProgramWithProfile>();
-  return (
-    <Container>
-      <div className="flex flex-col gap-8 my-8">
-        <LinkHome>Retour vers la création d'un nouveau programme</LinkHome>
-        <Heading title="Votre plan sportif et nutritionnel personnalisé">
-          Découvrez votre programme d'entraînement et de nutrition sur mesure,
-          conçu pour vous aider à atteindre vos objectifs rapidement et
-          efficacement. Suivez votre progression et ajustez votre plan en
-          fonction de vos performances pour une expérience véritablement
-          personnalisée.
-        </Heading>
-        <Suspense>
-          <Await resolve={data}>
-            <FitnessProgramAccessor />
-          </Await>
-        </Suspense>
-      </div>
-    </Container>
   );
 }

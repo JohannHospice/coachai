@@ -18,27 +18,27 @@ export async function action({ request }: ActionArgs) {
 
   const profile = ProfileValidator.safeParse(formDataObject);
 
-  if (profile.success) {
-    try {
-      const fitnessProgram = await createFitness(profile.data);
-      return redirect(
-        `/plan-sportif-et-nutritionnel?program=${encodeURI(
-          JSON.stringify(fitnessProgram)
-        )}`
-      );
-    } catch (error: any) {
-      console.error(error);
-      return {
-        form: "Une erreur s'est produite lors de la connexion à ChatGPT.",
-      };
-    }
+  if (!profile.success) {
+    console.error(profile.error.issues);
+    return profile.error.issues.reduce(
+      (acc, x) => ({ ...acc, [x.path.join("/")]: x.message }),
+      {}
+    );
   }
 
-  console.error(profile.error.issues);
-  return profile.error.issues.reduce(
-    (acc, x) => ({ ...acc, [x.path.join("/")]: x.message }),
-    {}
-  );
+  try {
+    const fitnessProgram = await createFitness(profile.data);
+    return redirect(
+      `/plan-sportif-et-nutritionnel?program=${encodeURI(
+        JSON.stringify(fitnessProgram)
+      )}`
+    );
+  } catch (error: any) {
+    console.error(error);
+    return {
+      form: "Une erreur s'est produite lors de la connexion à ChatGPT.",
+    };
+  }
 }
 
 export default function Index() {

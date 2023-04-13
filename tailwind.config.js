@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        blob: "rotate 15s linear infinite, scale 10s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite",
+        blob: "rotate 10s linear infinite, scale 10s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite",
       },
       keyframes: {
         rotate: {

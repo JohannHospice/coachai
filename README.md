@@ -1,34 +1,53 @@
-# Welcome to Remix!
+# CoachAI
 
-- [Remix Docs](https://remix.run/docs)
+Ce projet est une application web développée avec OpenAI, React, Remix, TailwindCSS et Zod pour aider les utilisateurs à créer des plans d'entraînement et de nutrition sur mesure en fonction de leur profil et de leurs objectifs.
 
-## Deployment
+## Fonctionnalités
 
-After having run the `create-remix` command and selected "Vercel" as a deployment target, you only need to [import your Git repository](https://vercel.com/new) into Vercel, and it will be deployed.
+- Formulaire de saisie de profil pour recueillir les informations sur l'utilisateur
+- Génération automatisée d'un plan d'entraînement et de nutrition personnalisé en utilisant OpenAI
+- Affichage des résultats dans un format clair et facile à comprendre
 
-If you'd like to avoid using a Git repository, you can also deploy the directory by running [Vercel CLI](https://vercel.com/cli):
+## Installation et configuration
 
-```sh
-npm i -g vercel
-vercel
+1. Clonez le dépôt Git sur votre machine locale :
+
+```bash
+git clone https://github.com/JohannHospice/coachai.git
 ```
 
-It is generally recommended to use a Git repository, because future commits will then automatically be deployed by Vercel, through its [Git Integration](https://vercel.com/docs/concepts/git).
+2. Accédez au dossier du projet et installez les dépendances :
 
-## Development
-
-To run your Remix app locally, make sure your project's local dependencies are installed:
-
-```sh
+```bash
+cd coachai
 npm install
 ```
 
-Afterwards, start the Remix development server like so:
+3. Configurez vos variables d'environnement pour l'API OpenAI dans un fichier .env à la racine du projet :
 
-```sh
+```bash
+OPENAI_API_KEY=your_openai_api_key
+```
+
+4. Lancez le serveur de développement :
+
+```bash
 npm run dev
 ```
 
-Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
+L'application devrait être accessible à l'adresse http://localhost:3000.
 
-If you're used to using the `vercel dev` command provided by [Vercel CLI](https://vercel.com/cli) instead, you can also use that, but it's not needed.
+## Utilisation
+
+1. Accédez à la page d'accueil de l'application et remplissez le formulaire avec les informations de profil.
+2. Cliquez sur "Générer un plan" pour envoyer les informations au serveur.
+3. Le serveur interroge l'API OpenAI et génère un plan d'entraînement et de nutrition personnalisé pour l'utilisateur.
+4. Les résultats sont affichés sur la page "plan-sportif-et-nutritionel", où l'utilisateur peut consulter et suivre son programme personnalisé.
+
+## Contribution
+
+Les contributions au projet sont les bienvenues. Veuillez créer une branche à partir de la branche main et soumettre une Pull Request pour proposer vos modifications.
+
+## Licence
+
+Ce projet est sous licence MIT. Pour plus d'informations, consultez le fichier LICENSE dans ce dépôt.

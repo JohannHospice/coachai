@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { Card } from "~/components/commons/Card";
 import type { ProgramWithProfile } from "~/models/types";
-import { timeFromNowInFrench } from "./getTimeDurations";
+import { timeFromNowInFrench } from "../../../tools/timeFromNowInFrench";
 
 export function ProfileCard({ program }: { program: ProgramWithProfile }) {
   const { profile } = program;

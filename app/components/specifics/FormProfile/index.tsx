@@ -19,7 +19,7 @@ export function FormProfile({
     <Card className="bg-gray-900 relative overflow-hidden">
       {disabled && (
         <div className="absolute inset-0 backdrop-blur-sm bg-gray-900/75 z-10 flex items-center">
-          <Card className="m-8  bg-yellow-500">
+          <Card className="m-8  bg-indigo-500">
             <div className="text-2xl  text-white">
               <span className="font-semibold">Oups ! </span>
               Nos coachs virtuels sont actuellement en pause-café.

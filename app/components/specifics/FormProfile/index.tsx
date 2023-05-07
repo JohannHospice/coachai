@@ -9,12 +9,28 @@ import { TextArea } from "~/components/commons/TextArea";
 export function FormProfile({
   loading,
   errors = {},
+  disabled,
 }: {
   loading: boolean;
   errors?: { [key: string]: string };
+  disabled: boolean;
 }) {
   return (
-    <Card className="bg-gray-900">
+    <Card className="bg-gray-900 relative overflow-hidden">
+      {disabled && (
+        <div className="absolute inset-0 backdrop-blur-sm bg-gray-900/75 z-10 flex items-center">
+          <Card className="m-8  bg-yellow-500">
+            <div className="text-2xl  text-white">
+              <span className="font-semibold">Oups ! </span>
+              Nos coachs virtuels sont actuellement en pause-café.
+            </div>
+            <div className="text-lg text-white/75 mt-2">
+              Revenez très bientôt pour profiter de nos programmes de
+              musculation sur mesure.
+            </div>
+          </Card>
+        </div>
+      )}
       <Form method="post" className="flex flex-col gap-4">
         <div className="text-xl">Décrivez nous votre profil</div>
         <Select

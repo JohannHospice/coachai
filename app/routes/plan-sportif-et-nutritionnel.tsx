@@ -1,7 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
-  Await,
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,

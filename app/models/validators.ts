@@ -23,9 +23,16 @@ export const ProfileValidator = z.object({
   commentary: z
     .string()
     .max(
-      120,
-      "L'informations complémentaires ne doivent pas dépasser 120 caractères."
+      180,
+      "L'informations complémentaires ne doivent pas dépasser 180 caractères."
     )
+    .optional(),
+  createdOn: z
+    .string()
+    .refine((value) => {
+      const parsedDate = Date.parse(value);
+      return !isNaN(parsedDate);
+    }, "Doit être une date valide au format ISO.")
     .optional(),
 });
 

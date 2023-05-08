@@ -23,8 +23,8 @@ export const ProfileValidator = z.object({
   commentary: z
     .string()
     .max(
-      180,
-      "L'informations complémentaires ne doivent pas dépasser 180 caractères."
+      210,
+      "L'informations complémentaires ne doivent pas dépasser 210 caractères."
     )
     .optional(),
   createdOn: z

@@ -1,154 +1,75 @@
-// import { useEffect, useRef, useState } from "react";
-
-// export default function InfiniteScrollList({ children }: { children: any }) {
-//   const scrollSection = useRef<HTMLDivElement | null>(null);
-//   const [isHovering, setIsHovering] = useState(false);
-//   const [isDragging, setIsDragging] = useState(false);
-//   const [translationX, setTranslationX] = useState(0);
-//   const [startX, setStartX] = useState(0);
-//   const [startTranslationX, setStartTranslationX] = useState(0);
-
-//   const scrollSpeed = 1;
-
-//   useEffect(() => {
-//     if (scrollSection.current) {
-//       setTranslationX(-scrollSection.current.scrollWidth / 2);
-//     }
-//     const intervalId = setInterval(() => {
-//       if (isHovering || isDragging || !scrollSection.current) return;
-
-//       const totalWidth = scrollSection.current.scrollWidth;
-
-//       setTranslationX((prevTranslationX) => {
-//         const newTranslationX = prevTranslationX - scrollSpeed;
-
-//         if (Math.abs(newTranslationX) >= totalWidth / 2) {
-//           return newTranslationX + totalWidth / 2;
-//         }
-
-//         return newTranslationX;
-//       });
-//     }, 1000);
-
-//     return () => clearInterval(intervalId);
-//   }, [isHovering, isDragging]);
-
-//   const handleMouseEnter = () => {
-//     setIsHovering(true);
-//   };
-
-//   const handleMouseLeave = () => {
-//     setIsHovering(false);
-//   };
-
-//   const handleMouseDown = (
-//     event: React.MouseEvent<HTMLDivElement, MouseEvent>
-//   ) => {
-//     setIsDragging(true);
-//     setStartX(event.clientX);
-//     setStartTranslationX(translationX);
-//   };
-
-//   const handleMouseUp = () => {
-//     setIsDragging(false);
-//   };
-
-//   const handleMouseMove = (
-//     event: React.MouseEvent<HTMLDivElement, MouseEvent>
-//   ) => {
-//     if (isDragging && scrollSection.current) {
-//       const totalWidth = scrollSection.current.scrollWidth;
-//       const deltaX = event.clientX - startX;
-//       const newTranslationX = startTranslationX + deltaX;
-
-//       if (Math.abs(newTranslationX) >= totalWidth / 2) {
-//         setTranslationX(
-//           newTranslationX - (Math.sign(newTranslationX) * totalWidth) / 2
-//         );
-//       } else {
-//         setTranslationX(newTranslationX);
-//       }
-//     }
-//   };
-
-//   return (
-//     <div className="relative">
-//       <div className="w-screen overflow-visible ">
-//         {/* <div className="sticky w-screen overflow-hidden relative"> */}
-//         <div
-//           ref={scrollSection}
-//           className="flex flex-row gap-8 transition-transform"
-//           style={{
-//             transform: `translateX(${translationX}px)`,
-//           }}
-//           onMouseEnter={handleMouseEnter}
-//           onMouseLeave={handleMouseLeave}
-//           onMouseDown={handleMouseDown}
-//           onMouseUp={handleMouseUp}
-//           onMouseMove={handleMouseMove}
-//         >
-//           {children}
-//           {children}
-//         </div>
-//       </div>
-//     </div>
-//   );
-
-// }
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-const time = 100;
+import type { AnimationControls } from "framer-motion";
+
+const TIME_TO_SCROLL_ANIMATION = 40;
 
 export default function Carousel({ children }: { children: any[] }) {
-  const [isHovered, setIsHovered] = useState(false);
   const controls = useAnimation();
-  const [direction, setDirection] = useState("left");
-  const [from, setFrom] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
   const scrollSection = useRef<HTMLDivElement | null>(null);
 
   const handleMouseEnter = () => {
-    // setIsHovered(true);
-    // controls.stop();
+    console.log("stop");
+    setIsHovered(true);
+    isHoveredRef.current = true;
+    controls.stop();
   };
-  const [scrollWidth, setScrollWidth] = useState(0);
 
   const handleMouseLeave = () => {
-    // setIsHovered(false);
-    const x = scrollSection.current?.getBoundingClientRect().x;
-    // setFrom(x || 0);
+    setIsHovered(false);
+    isHoveredRef.current = false;
+
+    console.log("resume");
+    const { to, clientX, base } = getDimensions(scrollSection);
+    animateScroll({
+      controls,
+      to,
+      from: clientX,
+      duration: getDuration(to, base, clientX),
+    }).then(() => {
+      if (isHoveredRef.current) return;
+
+      console.log("restart");
+      const { to, base } = getDimensions(scrollSection);
+      animateScroll({
+        controls,
+        to,
+        from: base,
+        duration: getDuration(to, base, base),
+        isRepeat: true,
+      });
+    });
   };
 
   useEffect(() => {
-    if (scrollSection.current) {
-      setScrollWidth(scrollSection.current.scrollWidth / 3);
-      if (!isHovered) {
-        controls.start({
-          x: -scrollWidth * 2,
-          transition: {
-            duration: time,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear",
-            from: from,
-          },
-        });
-      }
-      setFrom(-scrollWidth);
-    }
-  }, [isHovered, controls, scrollWidth, from]);
+    setTimeout(() => {
+      console.log("start");
+      const { to, base } = getDimensions(scrollSection);
+      animateScroll({
+        controls,
+        to,
+        from: base,
+        duration: getDuration(to, base, base),
+        isRepeat: true,
+      });
+    });
+  }, [scrollSection, controls]);
 
   return (
     <div
       className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      // onMouseEnter={handleMouseEnter}
+      // onMouseLeave={handleMouseLeave}
     >
       <motion.div
         ref={scrollSection}
-        className="flex space-x-8"
+        className="flex space-x-8 cursor-grab"
         animate={controls}
-        drag={false}
-        // drag={isHovered ? "x" : false}
+        drag={isHovered ? "x" : false}
+        whileTap={{ cursor: "grabbing" }}
+        whileDrag={{ scale: 1.2 }}
         dragConstraints={{
           left: 0,
           right: 0,
@@ -158,7 +79,7 @@ export default function Carousel({ children }: { children: any[] }) {
           <div
             key={index}
             className="flex-shrink-0 select-none flex"
-            draggable={false}
+            onPointerDownCapture={(e) => e.stopPropagation()}
           >
             {item}
           </div>
@@ -166,4 +87,66 @@ export default function Carousel({ children }: { children: any[] }) {
       </motion.div>
     </div>
   );
+}
+
+function getDuration(to: number, from: number, position: number) {
+  const d1 = Math.abs(to) - Math.abs(from);
+  const d2 = Math.abs(to) - Math.abs(position);
+
+  return (d2 / d1) * TIME_TO_SCROLL_ANIMATION;
+}
+
+function getDimensions(div: React.MutableRefObject<HTMLDivElement | null>) {
+  if (!div.current) {
+    throw new Error("no element");
+  }
+
+  const scrollWidth = div.current.scrollWidth / 3;
+  const data = {
+    to: -scrollWidth * 2,
+    clientX: div.current?.getBoundingClientRect().x,
+    base: -scrollWidth,
+  };
+  console.log(data);
+  return data;
+}
+
+function animateScroll({
+  controls,
+  to,
+  from,
+  duration,
+  isRepeat,
+}: {
+  controls: AnimationControls;
+  to: number;
+  from: number;
+  duration: number;
+  isRepeat?: boolean;
+}) {
+  console.log({
+    controls,
+    to,
+    from,
+    duration,
+    isRepeat,
+  });
+
+  return controls.start({
+    x: to,
+    transition: {
+      from: from,
+      duration: duration,
+      ...(isRepeat
+        ? {
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear",
+          }
+        : {
+            repeat: 0,
+            ease: "linear",
+          }),
+    },
+  });
 }

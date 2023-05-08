@@ -8,7 +8,7 @@ import { HeroHomePage } from "../components/specifics/HeroHomePage";
 import { ProfileValidator } from "../models/validators";
 import { SuspenseLoader } from "../components/commons/SuspenseLoader";
 import { PROGRAMS } from "../models/LAST_REQUESTS";
-import { ProfileCard } from "../components/specifics/ProfileCard";
+import { ProfileCard } from "../components/cards/ProfileCard";
 import ListWithHorizontalScroll from "../components/commons/ListWithHorizontalScroll";
 import { Profile } from "~/models/types";
 
